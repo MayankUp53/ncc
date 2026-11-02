@@ -29,7 +29,10 @@ function endTime($phone, $campaignId, $unique_id, $push_time, $url_time, $client
 	$responsefromdbtime=date("Y-m-d H:i:s.u",time());
 
     $push_query = 'INSERT INTO crm_push_history (phone,campaign_id,unique_id,push_time,crmpopup_time,databaserequesttime,databaseresponsetime,server_client_timediff,userId,sessionId) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)';
-    $conn2 = crm_pg_connect("host=$host user=$user dbname=$dbname", PGSQL_CONNECT_FORCE_NEW);
+    $conn2 = crm_pg_connect(crm_db_connection_string(array(
+        'host' => $host, 'user' => $user, 'dbname' => $dbname,
+        'password' => $GLOBALS['password'] ?? '', 'port' => $GLOBALS['port'] ?? ''
+    )), PGSQL_CONNECT_FORCE_NEW);
     if ($conn2 === false) { error_log('Push timing database unavailable.'); return; }
     $push_hist = crm_pg_query($conn2, $push_query, array($phone, $campaignId, $unique_id, $push_time, $urlTimeFormatted, $requesttodbtime, $responsefromdbtime, $client_server_time_diff, $userId, $sessionId));
     if ($push_hist === false) { error_log('Push timing query failed.'); }

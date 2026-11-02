@@ -23,7 +23,7 @@ $div_id  = crm_request_value($_GET, 'div_id');
 //echo "<br>";
 
 if (!readcrmconf(1)) { http_response_code(500); exit('Configuration unavailable.'); }
-$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+$connection = crm_pg_connect(crm_db_connection_string());
 
 if (!$connection) {
 #echo "Error: ".pg_result_error($connection).".";

@@ -1,0 +1,39 @@
+.git
+.gitignore
+.codex
+.agents
+.idea
+.vscode
+.env
+.env.*
+
+# Supply the real configuration as a read-only bind mount at runtime.
+crmprops
+
+# Credentials, database exports and runtime output must stay out of the image.
+pki
+*.key
+*.pem
+*.sql
+*.log
+logs1
+log
+run
+
+# Historical source copies and local archives
+*bkp*
+*bak*
+*backup*
+oldcustomer.php
+customer_23-01-2015.php
+customer_24-feb-2015.php
+dispose_24-feb-2015.php
+*.tgz
+*.zip
+tests
+Thumbs.db
+.DS_Store
+
+# Old host Apache/PHP 5 configuration is not used by this container.
+conf
+conf.d

@@ -68,7 +68,7 @@ $url_params = "sessionId=$sessionId&campaignId=$campaignId&crtObjectId=$crtObjec
 
 
 
-$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+$connection = $connectDB;
 if ($connection === false) { http_response_code(503); exit('DB接続中にエラーが発生しました'); }
 $phoneoriginal = explode('-', $phone)[0];
 $data = false;
@@ -888,7 +888,7 @@ font-size:12px;
                                        <SELECT name="concern1" id="concern1" style="width: 200px" required/>
 						<option value="" selected>- 選択 -</option>
                                                <?php 
-	$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+	$connection = crm_pg_connect(crm_db_connection_string());
                                                    
 						while ($name = pg_fetch_array($concern))
 						{ 

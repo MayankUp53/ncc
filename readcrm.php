@@ -1,6 +1,7 @@
 <?php
 $file = __DIR__ . '/crmprops';
 $user = $host = $addNewnumbers = $dbname = $password = '';
+$port = '';
 $ameyohost = $ameyodbhost = $ameyodbname = $enablecrmdebug = $crmtype = '';
 
 function readcrmconf($returntype = 0) {
@@ -14,6 +15,7 @@ function readcrmconf($returntype = 0) {
         'pgConnectionString.host' => 'host',
         'pgConnectionString.user' => 'user',
         'pgConnectionString.password' => 'password',
+        'pgConnectionString.port' => 'port',
         'pgConnectionString.dbname' => 'dbname',
         'pgConnectionString.ameyohost' => 'ameyohost',
         'pgConnectionString.ameyodbhost' => 'ameyodbhost',
@@ -46,7 +48,24 @@ function crm_request_value(array $source, string $key, string $default = ''): st
     return (string) $value;
 }
 
-/** Return database failures to the caller without emitting SQL/customer data into responses. */
+/** Build a libpq connection string from crmprops, quoting spaces, quotes and backslashes. */
+function crm_db_connection_string(?array $settings = null): string {
+    if ($settings === null) {
+        $settings = array();
+        foreach (array('host', 'user', 'dbname', 'password', 'port') as $key) {
+            $settings[$key] = $GLOBALS[$key] ?? '';
+        }
+    }
+    $parts = array();
+    foreach (array('host', 'user', 'dbname', 'password', 'port') as $key) {
+        $value = (string) ($settings[$key] ?? '');
+        if (($key === 'password' || $key === 'port') && $value === '') { continue; }
+        $parts[] = $key . "='" . str_replace(array('\\', "'"), array('\\\\', "\\'"), $value) . "'";
+    }
+    return implode(' ', $parts);
+}
+
+/** Return database failures to the caller without emitting connection/customer data into responses. */
 function crm_pg_connect(string $connectionString, int $flags = 0) {
     $connection = @pg_connect($connectionString, $flags);
     if ($connection === false) { error_log('CRM database connection failed.'); }

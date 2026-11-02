@@ -72,7 +72,7 @@ $historyParams[] = $userId;
 $userPlaceholder = '$' . count($historyParams);
 $historyParams[] = $crtObjectId;
 $insertPGSQLCALL = 'UPDATE customer_history SET ' . $setClause . ',user_id=' . $userPlaceholder . ' WHERE crt_object_id=$' . count($historyParams);
-$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+$connection = crm_pg_connect(crm_db_connection_string());
 if ($connection === false) { http_response_code(503); exit('Database connection failed.'); }
 if (crm_pg_query($connection, 'BEGIN') === false) { http_response_code(500); exit('Could not start database transaction.'); }
 $result = crm_pg_query($connection, $insertPGSQL, $customerParams);

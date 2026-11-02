@@ -58,6 +58,12 @@ Checks use a portable official **PHP 8.2.35** Windows runtime, verified against 
 
 ## Before deployment
 
+### Shared CRM configuration
+
+`crmdb_connect.php` now loads its host, user, database, password and optional port from `crmprops`; it no longer has separate hardcoded database settings. The updated CRM endpoints and timing connections share `crm_db_connection_string()` so credentials are quoted consistently and the configured password is used. Existing `$connectDB` and database-variable aliases remain available. Set an optional nondefault port with `pgConnectionString.port` rather than embedding connection options in the host.
+
+This configuration follow-up passed 14 dedicated checks for settings loading, aliases, password quoting, port handling and reloads, plus the 137 isolated endpoint checks on PHP 8.2.35. Those follow-up checks use connection stubs and do not authenticate against the production database.
+
 Use PHP **8.2.35** with `pgsql` and `mbstring` enabled. Enable `mysqli` only if the optional MySQL timing integration is used. Configure the target web server's PHP handler separately; the bundled server configuration was not changed.
 
 On staging, verify both existing and new customers, saving, quick and normal dispositions, callbacks/Ameyo redirects, all NCC fields, dropdown changes, history and timing logging. Check PHP logs with `E_ALL`, `display_errors=Off`, and `log_errors=On`.

@@ -22,7 +22,7 @@ if (!readcrmconf(1)) {
     echo json_encode(array('response' => 'failure', 'message' => 'Configuration unavailable'));
     exit;
 }
-$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+$connection = crm_pg_connect(crm_db_connection_string());
 if ($connection === false) {
     http_response_code(503);
     echo json_encode(array('response' => 'failure', 'message' => 'Database unavailable'));

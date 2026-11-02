@@ -17,5 +17,6 @@ $db_config = array(
           'dbhost' => $host,
           'dbname' => $dbname,
           'dbuser' => $user,
-          'dbpassword' => $password
+          'dbpassword' => $password,
+          'dbport' => $port
 );

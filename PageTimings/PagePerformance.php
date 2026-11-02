@@ -83,7 +83,13 @@ class PagePerformance {
     public function connect($db_config) {
         if ($db_config['database'] === 'postgres') {
             // Own connections must not share the caller's pg_connect object.
-            return crm_pg_connect("host={$db_config['dbhost']} user={$db_config['dbuser']} dbname={$db_config['dbname']} password={$db_config['dbpassword']}", PGSQL_CONNECT_FORCE_NEW);
+            return crm_pg_connect(crm_db_connection_string(array(
+                'host' => $db_config['dbhost'],
+                'user' => $db_config['dbuser'],
+                'dbname' => $db_config['dbname'],
+                'password' => $db_config['dbpassword'],
+                'port' => $db_config['dbport'] ?? ''
+            )), PGSQL_CONNECT_FORCE_NEW);
         }
         if ($db_config['database'] === 'mysql') {
             try { return mysqli_connect($db_config['dbhost'], $db_config['dbuser'], $db_config['dbpassword'], $db_config['dbname']); }

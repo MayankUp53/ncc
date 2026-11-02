@@ -30,7 +30,7 @@ $unique_id = crm_request_value($_GET, 'unique_id');
 $push_time = crm_request_value($_GET, 'push_time');
 
 
-$connection = crm_pg_connect("host=$host user=$user dbname=$dbname");
+$connection = crm_pg_connect(crm_db_connection_string());
 
 if (!$connection) {
         #echo "エラー：".pg_result_error($connection).".";
