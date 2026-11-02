@@ -1,0 +1,37 @@
+# Production configuration and secrets
+/crmprops
+/.env
+/.env.*
+!/.env.example
+/pki/
+*.key
+*.pem
+
+# Database exports containing application/customer data
+/ncc.sql
+/cancercenter_db_dump.sql
+
+# Runtime output
+/log/
+/run/
+*.log
+/logs1
+
+# Historical source copies (kept locally)
+*bkp*
+*bak*
+*backup*
+/oldcustomer.php
+/customer_23-01-2015.php
+/customer_24-feb-2015.php
+/dispose_24-feb-2015.php
+
+# Local/dependency archives and editor files
+*.tgz
+*.zip
+/.idea/
+/.vscode/
+/.codex/
+/.agents/
+Thumbs.db
+.DS_Store

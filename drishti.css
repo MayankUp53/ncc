@@ -1,0 +1,59 @@
+body {
+	margin-left: 5px;
+	margin-top: 2px;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	background-color:#ffffff;
+}
+
+.text {
+font-family: Verdana;
+font-size: 10pt;
+font-weight: bold;
+color:#020A4F;
+}
+.style1 {
+font-family: Verdana;
+font-size: 12pt;
+color:red;
+}
+.style2 {
+font-family: Verdana;
+font-size: 24px;
+color:#000000;
+}
+
+.style3 {
+font-family: Verdana;
+color:red;
+font-size: 18px
+}
+
+.style4 {
+	margin-left:6px;
+	margin-top:0px;
+	margin-right:6px;
+	margin-bottom:0px;
+	color:#020A4F;
+}
+
+.style5 {
+font-family: Verdana;
+font-size: 12pt;
+font-weight: bold;
+color:#020A4F;
+}
+
+.button {
+font-family: Verdana;
+font-size: 10pt;
+width:90%;
+font-weight: bold;
+}
+
+.submit {
+font-family: Verdana;
+font-size: 8pt;
+width:160;
+font-weight: bold;
+}

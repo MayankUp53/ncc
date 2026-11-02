@@ -1,0 +1,9 @@
+addNewnumbers = true
+pgConnectionString.host = 127.0.0.1
+pgConnectionString.user = postgres
+pgConnectionString.password = postgres
+pgConnectionString.dbname = ameyocrm
+pgConnectionString.ameyohost = 127.0.0.1
+pgConnectionString.ameyodbhost = 127.0.0.1
+pgConnectionString.ameyodbname = ameyodb1
+enableCrmDebug = false

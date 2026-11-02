@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.drishti.dacx.nodeflow.model:NodeFlow xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.drishti.dacx.nodeflow.model="http://www.drishtisoft.com/dacx/nodeflow/nodeModel.ecore" startNode="CustomerOriginateNode" name="auto_dial.nodeflow_diagram">
+  <nodes name="CustomerOriginateNode">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#/"/>
+    <events name="call.leg.already.there"/>
+    <events name="verification.failed"/>
+    <events name="failure"/>
+    <events name="connected" defaultTransition="//@transitions.0"/>
+    <events name="no.answer"/>
+    <events name="dial.failed"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="ringTimeout">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="setupTimeout">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#//@attributes.1"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="customer.originate.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="AMDNode" inTransitions="//@transitions.0">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/AMD.nodemodel#/"/>
+    <events name="human" defaultTransition="//@transitions.4"/>
+    <events name="hungup.amd" defaultTransition="//@transitions.1"/>
+    <events name="success.amd" defaultTransition="//@transitions.2"/>
+    <events name="detection.falied.amd" defaultTransition="//@transitions.5"/>
+    <events name="failure.amd" defaultTransition="//@transitions.3"/>
+    <events name="timed.out"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="amd.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="FailureStop" inTransitions="//@transitions.1 //@transitions.2 //@transitions.3 //@transitions.8 //@transitions.9">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StopNode.nodemodel#/"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="returnStatus" value="Failure">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StopNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="ACDNode" inTransitions="//@transitions.4 //@transitions.5">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#/"/>
+    <events name="timed.out"/>
+    <events name="failure"/>
+    <events name="hangup"/>
+    <events name="success" defaultTransition="//@transitions.14"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="specificResourceAllowed" value="true">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="acdTimeout" staticValue="60000">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.1"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="requestPriority">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.2"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeNodeFlow" name="playSequenceNodeflow">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.3"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="extensionVariable">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.4"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="ivrDataVariables">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ACDNode.nodemodel#//@attributes.5"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="default.acd.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="UserOriginate" inTransitions="//@transitions.10 //@transitions.11">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#/"/>
+    <events name="call.leg.already.there" defaultTransition="//@transitions.12"/>
+    <events name="verification.failed"/>
+    <events name="failure"/>
+    <events name="connected" defaultTransition="//@transitions.13"/>
+    <events name="no.answer"/>
+    <events name="dial.failed"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="ringTimeout">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="setupTimeout">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/OriginateCRTObjectNode.nodemodel#//@attributes.1"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="user.originate.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="MakeCallNode" inTransitions="//@transitions.12 //@transitions.13">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/MakeCallNode.nodemodel#/"/>
+    <events name="verification.failed"/>
+    <events name="call.legs.hungup"/>
+    <events name="failure" defaultTransition="//@transitions.8"/>
+    <events name="success" defaultTransition="//@transitions.6"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="voice.campaign.make.call.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="StartMonitorNode" inTransitions="//@transitions.6">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StartMonitorNode.nodemodel#/"/>
+    <events name="start.monitor.already.monitoring"/>
+    <events name="success" defaultTransition="//@transitions.7"/>
+    <events name="failure" defaultTransition="//@transitions.9"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="recordingFormat" value="g729c">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StartMonitorNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="recordingFilePattern" staticValue="">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StartMonitorNode.nodemodel#//@attributes.1"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="forceMonitor" value="false">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StartMonitorNode.nodemodel#//@attributes.2"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="customer.start.monitor.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="SuccessStop" inTransitions="//@transitions.7">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StopNode.nodemodel#/"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="returnStatus" value="Success">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/StopNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="CRMNode" inTransitions="//@transitions.15 //@transitions.16">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/CRMNode.nodemodel#/"/>
+    <events name="success" defaultTransition="//@transitions.10"/>
+    <events name="failure" defaultTransition="//@transitions.11"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeVariable" name="crmUrl" staticValue="unique_id;push_time">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/CRMNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dispositionRequired" value="true">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/CRMNode.nodemodel#//@attributes.1"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="variablesString" value="unique_id;push_time">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/CRMNode.nodemodel#//@attributes.2"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType" value="crm.default.node.data.provider">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <nodes name="Script_node" inTransitions="//@transitions.14">
+    <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ScriptNode.nodemodel#/"/>
+    <events name="script.node.success" defaultTransition="//@transitions.15"/>
+    <events name="script.node.failure" defaultTransition="//@transitions.16"/>
+    <events name="system.error"/>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="script" value="set uni [ clock format [clock seconds] -format {%Y-%m-%d_%H%M%S} ]\nset cdate [ clock format [clock seconds] -format {%Y-%m-%d %H:%M:%S} ]\nset unique_id ${srcPhone}_${dstPhone}_${uni}\nset insec  [clock seconds]\nset inmilisec [clock clicks -milliseconds]\nset intime [format &quot;%d.%03d&quot; $insec [expr ($inmilisec) % 1000]]\nset fmilisec1 [expr ($intime - $insec) ]\nset fmilisec2 [string range $fmilisec1 2 4]\nset push_time ${cdate}.${fmilisec2}\nputs $push_time\n">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/ScriptNode.nodemodel#//@attributes.0"/>
+    </attributes>
+    <attributes xsi:type="com.drishti.dacx.nodeflow.model:NodeAttributeStatic" name="dataProviderType">
+      <type href="plugin://com_drishti_dacx_nodeflow_util/model-data/BaseNode.nodemodel#//@attributes.0"/>
+    </attributes>
+  </nodes>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="AMDNode" fromNode="//@nodes.0/@events.3"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="FailureStop" fromNode="//@nodes.1/@events.1"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="FailureStop" fromNode="//@nodes.1/@events.2"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="FailureStop" fromNode="//@nodes.1/@events.4"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="ACDNode" fromNode="//@nodes.1/@events.0"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="ACDNode" fromNode="//@nodes.1/@events.3"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="StartMonitorNode" fromNode="//@nodes.5/@events.3"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="SuccessStop" fromNode="//@nodes.6/@events.1"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="FailureStop" fromNode="//@nodes.5/@events.2"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="FailureStop" fromNode="//@nodes.6/@events.2"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="UserOriginate" fromNode="//@nodes.8/@events.0"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="UserOriginate" fromNode="//@nodes.8/@events.1"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="MakeCallNode" fromNode="//@nodes.4/@events.0"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="MakeCallNode" fromNode="//@nodes.4/@events.3"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="Script_node" fromNode="//@nodes.3/@events.3"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="CRMNode" fromNode="//@nodes.9/@events.0"/>
+  <transitions xsi:type="com.drishti.dacx.nodeflow.model:UnconditionalTransition" toNode="CRMNode" fromNode="//@nodes.9/@events.1"/>
+  <context href="plugin://com_drishti_dacx_nodeflow_util/model-data/CustomerBasedInboundNodeflow.nodemodel#/"/>
+  <variables name="unique_id"/>
+  <variables name="push_time"/>
+</com.drishti.dacx.nodeflow.model:NodeFlow>
